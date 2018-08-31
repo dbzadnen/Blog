@@ -1,0 +1,115 @@
+{% extends "ProfileTemp.html"%}
+{% block register %}
+
+<div class="py-3 bg-dark" >
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto col-xl-8 col-md-10">
+          <h2 class="my-3 text-center">
+            <b>Update Informations Here </b>
+          </h2>
+          <p class="lead text-center"> Unrequired Field Can be left empty , they are generally to be used to display some custom informations in your profile , as for changing your password keep the field empty unless you want to change it</p>
+      </div>
+    </div>
+  </div>
+
+<div class="py-5" style="position: relative;margin-bottom: 7%;margin-left:20%;width: 70%" >
+<div class = "row">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-body text-center" >
+              <h3 class="pb-3">Login Informations</h3>
+              <form method="POST" action="">
+                  {{form.hidden_tag()}}
+                <div class="form-group">
+                  <label>New Email</label>
+                  {{form.email(class="form-control")}}
+                  {% if form.email.errors %}
+                      {% for error in form.email.errors%}
+                      <h6 class="text-danger"> {{error}}</h6>
+                      {% endfor %}
+                  {% endif %}
+                <!--  <input type="time" class="form-control"> -->
+                </div>
+                <div class="form-group">
+                    <label>New Username</label>
+                    {{form.username(class="form-control")}}
+                    {% if form.username.errors %}
+                        {% for error in form.username.errors%}
+                        <h6 class="text-danger"> {{error}}</h6>
+                        {% endfor %}
+                    {% endif %}
+                  <!--  <input type="time" class="form-control"> -->
+                  </div>
+                  <div class="form-group">
+                      <label>{{form.password.label}}</label>
+                      {{form.password(class="form-control")}}
+                      {% if form.password.errors %}
+                          {% for error in form.password.errors%}
+                          <h6 class="text-danger"> {{error}}</h6>
+                          {% endfor %}
+                      {% endif %}
+                    <!--  <input type="time" class="form-control"> -->
+                    </div>
+                {{form.submit(class="btn mt-2 btn-outline-dark")}}
+              </form>
+            </div>
+      </div>  
+      </div>
+      <div class="col-md-5">        
+      <div class="card">
+          <div class="card-body text-center" >
+            <form method="POST" action="" enctype = "multipart/form-data">
+                {{form.hidden_tag()}}
+              <div class="form-group">
+                <h2> Those Fields Are Not Required </h2>
+                <div class="form-group">
+                  <label> {{form.activity.label}}</label>
+                  {{form.activity(class="form-control")}}
+                  {% if form.activity.errors %}
+                      {% for error in form.activity.errors%}
+                      <h6 class="text-danger"> {{error}}</h6>
+                      {% endfor %}
+                  {% endif %}
+                <!--  <input type="time" class="form-control"> -->
+                </div>
+                <div class="form-group">
+                    <label>{{form.description.label}}</label>
+                    {{form.description(class="form-control")}}
+                    {% if form.description.errors %}
+                        {% for error in form.description.errors%}
+                        <h6 class="text-danger"> {{error}}</h6>
+                        {% endfor %}
+                    {% endif %}
+                  <!--  <input type="time" class="form-control"> -->
+                  </div>
+
+                <div class="form-group">
+                  <label>Update Profile Picture</label>
+                  {{form.pfp(class="form-control-file")}}
+                  {% if form.pfp.errors %}
+                      {% for error in form.pfp.errors%}
+                      <h6 class="text-danger"> {{error}}</h6>
+                      {% endfor %}
+                  {% endif %}
+                <!--  <input type="time" class="form-control"> -->
+                </div>
+                <div class="form-group">
+                    <label>Update Profile Cover</label>
+                    {{form.pfc(class="form-control-file")}}
+                    {% if form.pfc.errors %}
+                        {% for error in form.pfc.errors%}
+                        <h6 class="text-danger"> {{error}}</h6>
+                        {% endfor %}
+                    {% endif %}
+                  <!--  <input type="time" class="form-control"> -->
+                  </div>
+              {{form.submit(class="btn mt-2 btn-outline-dark")}}
+            </form>
+          </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}

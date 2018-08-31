@@ -1,0 +1,220 @@
+{% extends "ProfileTemp.html"%}
+ {% block section %}
+
+<div id="modal1" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header pb-0">
+        <h4 class="modal-title text-dark mx-auto">
+          <b>Confirm Your Choice</b>
+        </h4>
+
+        <button type="button" class="close text-danger pt-4 ml-0" data-dismiss="modal">
+          <span>
+            <i class="now-ui-icons ui-1_simple-remove lg"></i>
+          </span>
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <p class="m-0">If You Delete This Post , You Can Never Recover It Are You Sure You Want To Proceed ?</p>
+      </div>
+      <div class="modal-footer d-flex flex-row justify-content-between">
+        <a href="{{url_for('DeletePost',post_id=post.id)}}">
+          <button type="button" class="btn btn-secondary">Delete</button>
+        </a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modal2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header pb-0">
+          <h4 class="modal-title text-dark mx-auto">
+            <b>New Comment</b>
+          </h4>
+  
+          <button type="button" class="close text-danger pt-4 ml-0" data-dismiss="modal">
+            <span>
+              <i class="now-ui-icons ui-1_simple-remove lg"></i>
+            </span>
+          </button>
+  
+        </div>
+        <div class="modal-body">
+          <p class="m-0">Write Your Comment Here : ( Note That The Char Limit Is 356 ) </p>
+          <form method="POST" action="">
+              {{form.hidden_tag()}}
+          <div class="form-group">
+              <label>{{form.content.label}}</label>
+              {{form.content(class="form-control")}}
+              {% if form.content.errors %}
+                  {% for error in form.content.errors%}
+                  <h6 class="text-danger"> {{error}}</h6>
+                  {% endfor %}
+              {% endif %}
+            <!--  <input type="time" class="form-control"> -->
+            </div>
+            {{form.submit(class="btn mt-4 mb-3 btn-dark rounded btn-lg text-light text-center")}}
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if current_user == post.author %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position:relative;width:100%">
+      <div class="container">
+
+        <div class="collapse navbar-collapse" style="position: relative;margin-left: 40%">
+          <ul class="navbar-nav ml-2">
+            <li class="nav-item dropdown ml-2">
+              <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown">
+                <i class="now-ui-icons ui-1_settings-gear-63 x2" ></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" style="width:50%">
+                  <h6 class="dropdown-header">Order By</h6>
+                  <a class="dropdown-item" href="{{url_for('UpdatePost',post_id=post.id)}}">Edit</a>
+                  <a class="dropdown-item" data-toggle="modal" data-target="#modal1">Delete</a>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endif %}
+<div class="py-5 bg-dark" style="position: relative;width: 100%;height:100%;">
+  <div class="col" style="position: relative;margin-left:10%;width: 80% ">
+    <h1>{{post.title}}</h1>
+    
+  </div>
+  <div class="card border-0" style="width:80%;left:10%">
+    
+      <div class="" style="position: relative;">
+        <div style="margin: 2%">
+        {{render_html(post.content)}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+ {% block footer %}
+<div class = "bg-light" style="position: relative;height:100%" id="comment">
+  <div class="bg-light row py-5" style="position: relative;margin-left:8%;width: 90%;height: 100%;margin-bottom: 5%">
+    <div class="col-md-6">
+      <h4 class="mb-3 text-primary">Comments
+
+      <button type="button" class="close text-info pt-4 ml-0" style="margin-top:-2%;" data-toggle="modal" data-target="#modal2" >
+          <span>
+            <i class="now-ui-icons ui-1_simple-add lg"></i>
+          </span>
+      </button>
+    </h4>
+      {% if comments %}
+            {% for comment in comments %}
+
+            <div id="modal3{{comment.id}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header pb-0">
+                      <h4 class="modal-title text-dark mx-auto">
+                        <b>Confirm Your Choice</b>
+                      </h4>
+              
+                      <button type="button" class="close text-danger pt-4 ml-0" data-dismiss="modal">
+                        <span>
+                          <i class="now-ui-icons ui-1_simple-remove lg"></i>
+                        </span>
+                      </button>
+              
+                    </div>
+                    <div class="modal-body">
+                      <p class="m-0">If You Delete This Comment , You Can Never Recover It Are You Sure You Want To Proceed ?</p>
+                    </div>
+                    <div class="modal-footer d-flex flex-row justify-content-between">
+                       <a href="{{url_for('DeleteComment',comment_id=comment.id)}}">
+                        <button type="button" class="btn btn-secondary">Delete</button>
+                      </a>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class = "row" style="position: relative">
+                {% if comment.comment_author == current_user %}
+              <a href="{{url_for('EditComment',comment_id=comment.id)}}">
+                  <button type="button" class="close text-success pt-4 ml-0">
+                      <span>
+                        <i class="now-ui-icons ui-2_settings-90 lg" ></i>
+                      </span>
+                    </button>
+              </a>
+                <button type="button" class="close text-danger pt-4 ml-0" data-toggle="modal" data-target="#modal3{{comment.id}}">
+                    <span>
+                      <i class="now-ui-icons ui-1_simple-remove lg"></i>
+                    </span>
+                </button>
+                  {% endif %}
+            <div style="position: relative; width:100%;margin-left: 2%">
+              <div class="row">
+                <div class="col">
+                    <a href="url_for('UserProfile',user_name= comment.comment_author.username)">
+                  <img class="mb-1 rounded-circle" src="{{url_for('static',filename='assets/img/ProfilePics/' + comment.comment_author.pfp)}}" style="position: absolute;width: calc(3% + 35px); height:calc(30% +60px);">
+                </div>
+                </div>
+                <div class="col-md-6" style="position: relative;margin-right: 78%;">
+                  <a href="url_for('UserProfile',user_name= comment.comment_author.username)">
+                  <h4 class="text-dark" style="position: relative;left: 20%;top:18%"> {{comment.comment_author.username}} </h4>
+                </div>
+              </a>
+              </div>
+              <div class="row" style="position: relative;margin: 1%;margin-left: -2%;margin-top: -1%">
+                <div style="position: relative;width: 100%;left: 12.25%;margin-top: -2%">
+                  <div class="progress">
+                    <div class="progress-bar bg-dark" role="progressbar" style="width: 25%">25%</div>
+                  </div>
+                  <p style="position: relative;margin: 0.2%;margin-top: 0.5%;">{{comment.content}}</p>
+                </div>
+              </div>
+          </div>
+          </div>
+          {% endfor %}
+    {% else %}
+    <h4 class="mb-3" style="margin-left: 10%"> No Comment Yet ? Be The First To Like !</h4>
+    {% endif %}
+  </div>
+  {% if form2 %}
+  <div class = "col-md-6">
+      <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header pb-0">
+              <h4 class="modal-title text-dark mx-auto">
+                <b>Edit Comment</b>
+              </h4>
+            </div>
+            <div class="modal-body">
+              <p class="m-0">Edit Your Comment Here : </p>
+              <form method="POST" action="">
+                  {{form2.hidden_tag()}}
+              <div class="form-group">
+                  <label>{{form2.content.label}}</label>
+                  {{ form2.content(class="form-control") }}
+                  {% if form2.content.errors %}
+                      {% for error in form2.content.errors%}
+                      <h6 class="text-danger"> {{error}}</h6>
+                      {% endfor %}
+                  {% endif %}
+                <!--  <input type="time" class="form-control"> -->
+                </div>
+                {{form2.submit2(class="btn mt-4 mb-3 btn-dark rounded btn-lg text-light text-center")}}
+                </form>
+            </div>
+          </div>
+        </div>
+  </div>
+  {% endif  %}
+</div>
+{% endblock %}

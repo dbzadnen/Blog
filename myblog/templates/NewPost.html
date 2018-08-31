@@ -1,0 +1,112 @@
+{% extends "ProfileTemp.html"%}
+{%block heade%}
+{{ ckeditor.load(pkg_type="full") }}
+{% endblock %}
+{% block section %}
+<div class = " bg-dark">
+<div class="card bg-primary" style="margin-bottom: 4%;width:80%;align-content: center;margin-left: 10%">
+<div class="card-body text-center" >
+    <div class="row mt-4 pt-2">
+      <div class="col">
+        <h1>{{leg}}</h1>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            {{ ckeditor.load() }}
+
+          <div class="form-group mb-2">
+            {{form.title.label(class="mb-3")}}
+              {{form.title(class="form-control")}}
+              {% if form.title.errors %}
+                  {% for error in form.title.errors%}
+                  <h6 class="text-danger"> {{error}}</h6>
+                  {% endfor %}
+              {% endif %}
+          </div>
+          <div class="form-group ">
+              
+                {{form.content.label(class="text-light")}}
+                  {{form.content()}}
+                  {% if form.content.errors %}
+                      {% for error in form.content.errors%}
+                      <h6 class="text-danger"> {{error}}</h6>
+                      {% endfor %}
+                  {% endif %}
+           
+            </div>
+              <div class="bootstrap-wysiwyg" >
+                  {{form.smallcontent.label(class="text-light")}}
+                  {{form.smallcontent(class="form-control")}}
+                    {% if form.smallcontent.errors %}
+                        {% for error in form.smallcontent.errors%}
+                        <h6 class="text-danger"> {{error}}</h6>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+              {{form.submit(class="btn mt-4 mb-3 btn-light rounded btn-lg text-primary")}}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+{% block asidelel %}
+<!--
+<div class="py-5" style="position: fixed;left:-0.4%;top:10%;width : 15%;height: 100%;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Cras justo odio
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Dapibus ac facilisis in
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"> Morbi leo risus
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</div>
+-->
+{% endblock asidelel %}
+{% block footer %}
+<!--
+<div class="text-center" style="position:fixed;bottom:25%;left:42.2%;right:42.5%">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#">
+                <span>«</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">4</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                <span>»</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>-->
+{% endblock footer %}
